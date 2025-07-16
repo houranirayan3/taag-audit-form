@@ -4,3 +4,4 @@ pandas
 reportlab
 PyPDF2
 python-dotenv
+google-cloud-firestore
