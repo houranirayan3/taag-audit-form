@@ -8,5 +8,5 @@ creds = service_account.Credentials.from_service_account_info(
 )
 
 # Initialize Firestore client
-db = firestore.Client(credentials=creds, project=st.secrets["gcp_service_account"]["project_id"])
+db = firestore.Client(credentials=creds, project=st.secrets["firestore"]["project_id"])
 
