@@ -1,4 +1,6 @@
 streamlit
-fpdf2
 firebase-admin
 pandas
+reportlab
+PyPDF2
+python-dotenv
