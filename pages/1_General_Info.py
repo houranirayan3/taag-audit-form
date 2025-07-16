@@ -10,10 +10,13 @@ def get_firestore_client():
     return firestore.Client(credentials=credentials, project=credentials.project_id)
 
 
-def load_user_refresh_token():
+def list_all_clients():
+
     db = get_firestore_client()
-    doc = db.collection("clients").document("Ancestry").get()
-    return doc.to_dict()["Client name"] if doc.exists else None
+    docs = db.collection("clients").stream()
+    options = [doc.id for doc in docs]
+    return options
+ 
 
 st.set_page_config(page_title="General Info", layout="wide")
 st.markdown("<h2 style='color:#006699;'>Section 1: General Info</h2>", unsafe_allow_html=True)
@@ -31,7 +34,9 @@ dropdown_fields = {
 text_fields = ["Urls"]
 
 def main():
-    st.write(load_user_refresh_token())
+    options = list_all_clients() 
+    selected_client = st.selectbox("Select a client", options)
+ 
 
 # # Dropdowns with non-selectable placeholder
 # for label, table in dropdown_fields.items():
