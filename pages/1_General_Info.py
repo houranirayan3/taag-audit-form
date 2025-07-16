@@ -1,5 +1,5 @@
 import streamlit as st
-from firebase_db import fetch_dropdown, save_form_data
+
 from form_state import init_session
 
 st.set_page_config(page_title="General Info", layout="wide")
