@@ -11,7 +11,7 @@ creds = service_account.Credentials.from_service_account_info(
 )
 
 # Initialize Firestore client
-db = firestore.Client(credentials=creds, project=st.secrets["gcp_service_account"]["project_id"])
+db = firestore.Client(credentials=creds, project=st.secrets["firestore"]["project_id"])
 
 st.set_page_config(page_title="General Info", layout="wide")
 st.markdown("<h2 style='color:#006699;'>Section 1: General Info</h2>", unsafe_allow_html=True)
