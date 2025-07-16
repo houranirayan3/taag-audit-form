@@ -1,6 +1,17 @@
-import streamlit as st
+
 
 from form_state import init_session
+import streamlit as st
+from google.cloud import firestore
+from google.oauth2 import service_account
+
+# Load credentials from secrets
+creds = service_account.Credentials.from_service_account_info(
+    st.secrets["firestore"]
+)
+
+# Initialize Firestore client
+db = firestore.Client(credentials=creds, project=st.secrets["gcp_service_account"]["project_id"])
 
 st.set_page_config(page_title="General Info", layout="wide")
 st.markdown("<h2 style='color:#006699;'>Section 1: General Info</h2>", unsafe_allow_html=True)
