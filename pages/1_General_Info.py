@@ -36,6 +36,10 @@ text_fields = ["Urls"]
 def main():
     options = list_all_clients() 
     selected_client = st.selectbox("Select a client", options)
+
+if __name__ == "__main__":
+    main()
+  
  
 
 # # Dropdowns with non-selectable placeholder
