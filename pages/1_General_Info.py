@@ -30,7 +30,8 @@ dropdown_fields = {
 
 text_fields = ["Urls"]
 
-load_user_refresh_token()
+def main():
+    load_user_refresh_token()
 
 # # Dropdowns with non-selectable placeholder
 # for label, table in dropdown_fields.items():
