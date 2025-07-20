@@ -4,11 +4,19 @@ from google.cloud import firestore
 from google.oauth2 import service_account
 
 # Initialize Firestore client with Streamlit secrets
+from google.cloud import firestore
+from google.oauth2 import service_account
+import streamlit as st
+
 def get_firestore_client():
-    credentials = service_account.Credentials.from_service_account_info(
-        st.secrets["firestore"]
-    )
+    key_dict = st.secrets["firestore"]
+
+    # Explicitly convert the private key string into correct multiline format
+    key_dict["private_key"] = key_dict["private_key"].replace("\\n", "\n")
+
+    credentials = service_account.Credentials.from_service_account_info(key_dict)
     return firestore.Client(credentials=credentials, project=credentials.project_id)
+
 
 # Save form data to Firestore (optional usage)
 def save_form_data(collection_name, data_dict):
