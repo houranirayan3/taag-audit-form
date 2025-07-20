@@ -9,11 +9,13 @@ from google.oauth2 import service_account
 import streamlit as st
 
 def get_firestore_client():
-    key_dict = st.secrets["firestore"]
+    # Copy the secrets to a new mutable dictionary
+    key_dict = dict(st.secrets["firestore"])
 
-    # Explicitly convert the private key string into correct multiline format
+    # Replace literal \n with actual newlines
     key_dict["private_key"] = key_dict["private_key"].replace("\\n", "\n")
 
+    # Initialize credentials and client
     credentials = service_account.Credentials.from_service_account_info(key_dict)
     return firestore.Client(credentials=credentials, project=credentials.project_id)
 
