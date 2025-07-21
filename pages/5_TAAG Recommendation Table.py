@@ -80,7 +80,8 @@ with st.form("add_row_form"):
         st.success("✅ Row added!")
 
 # Convert to DataFrame and show
-if st.session_state["taag_table_data"]:
+if len(st.session_state["taag_table_data"]) > 0:
     df = pd.DataFrame(st.session_state["taag_table_data"])
     st.markdown("### 📊 Current Table State:")
     st.dataframe(df, use_container_width=True)
+
