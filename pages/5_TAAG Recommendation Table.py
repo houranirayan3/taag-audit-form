@@ -65,14 +65,10 @@ edited_df = st.data_editor(
     df,
     column_config={
         "command": "Event Name",
-        "commad":"Event type",
-        "rating": st.column_config.NumberColumn(
-            "Your rating",
-            help="How much do you like this command (1-5)?",
-            min_value=1,
-            max_value=5,
-            step=1,
-            format="%d ⭐",
+        "command":"Event type",
+        "connand": "Is the Event Triggered": False",
+        "command": "Custom Data",
+        "command": "Description"
         ),
         "is_widget": "Widget ?",
     },
