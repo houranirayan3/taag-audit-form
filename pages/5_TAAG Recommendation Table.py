@@ -60,16 +60,20 @@ if "taag_table_data" not in st.session_state:
         }
     ])
 
+# Work with a temp copy to avoid immediate state overwrite
+temp_df = st.session_state["taag_table_data"].copy()
+
 # Editable table
 edited_df = st.data_editor(
-    st.session_state["taag_table_data"],
+    temp_df,
     num_rows="dynamic",
     use_container_width=True,
     key="taag_table_editor"
 )
 
-# Update session state
-st.session_state["taag_table_data"] = edited_df
+# Only update if the edited table is not empty
+if not edited_df.empty:
+    st.session_state["taag_table_data"] = edited_df
 
 # Preview current table state
 st.markdown("### 📊 Current Table State:")
