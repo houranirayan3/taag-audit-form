@@ -73,7 +73,6 @@ edited_df = st.data_editor(
     key="taag_table_editor"
 )
 
-
-# Only update if the edited table is not empty
-if not edited_df.empty:
+# Update only if something changed (avoid refreshing state mid-edit)
+if not edited_df.equals(st.session_state["taag_table_data"]):
     st.session_state["taag_table_data"] = edited_df
