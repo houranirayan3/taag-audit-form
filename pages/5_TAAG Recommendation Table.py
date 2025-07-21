@@ -61,9 +61,10 @@ edited_df = st.data_editor(
     key="editor_taag"
 )
 
-# Update session with edited table
-st.session_state["taag_table_data"] = edited_df
+# Save edited table if there's a change
+if edited_df is not None and not edited_df.equals(st.session_state["taag_table_data"]):
+    st.session_state["taag_table_data"] = edited_df
 
-# Optional: display a button to manually confirm table is saved
-if st.button("✅ Confirm and Save Table"):
-    st.success("Table saved in session!")
+# Display the table (editable)
+st.dataframe(st.session_state["taag_table_data"], use_container_width=True)
+
