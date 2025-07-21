@@ -48,40 +48,29 @@ if "uploaded_image_paths" in st.session_state:
         with cols[idx % 3]:
             st.image(Image.open(img_path), caption=os.path.basename(img_path), use_column_width=True)
 
-# Initialize data
+# Initialize table only once
 if "taag_table_data" not in st.session_state:
-    st.session_state["taag_table_data"] = []
+    st.session_state["taag_table_data"] = pd.DataFrame([
+        {
+            "Event Name": "",
+            "Event Type": "",
+            "Is the Event Triggered": False,
+            "Custom Data": "",
+            "Description": ""
+        }
+    ])
 
-st.markdown("### 🧾 TAAG Table Entry")
+# Editable table
+edited_df = st.data_editor(
+    st.session_state["taag_table_data"],
+    num_rows="dynamic",
+    use_container_width=True,
+    key="taag_table_editor"
+)
 
-# Add new row
-with st.form("add_row_form"):
-    col1, col2, col3 = st.columns([2, 2, 1])
-    with col1:
-        event_name = st.text_input("Event Name")
-    with col2:
-        event_type = st.text_input("Event Type")
-    with col3:
-        is_triggered = st.checkbox("Is Triggered?")
+# Update session state
+st.session_state["taag_table_data"] = edited_df
 
-    custom_data = st.text_input("Custom Data")
-    description = st.text_area("Description")
-
-    submitted_row = st.form_submit_button("➕ Add to Table")
-
-    if submitted_row and event_name and event_type:
-        st.session_state["taag_table_data"].append({
-            "Event Name": event_name,
-            "Event Type": event_type,
-            "Is the Event Triggered": is_triggered,
-            "Custom Data": custom_data,
-            "Description": description
-        })
-        st.success("✅ Row added!")
-
-# Convert to DataFrame and show
-if len(st.session_state["taag_table_data"]) > 0:
-    df = pd.DataFrame(st.session_state["taag_table_data"])
-    st.markdown("### 📊 Current Table State:")
-    st.dataframe(df, use_container_width=True)
-
+# Preview current table state
+st.markdown("### 📊 Current Table State:")
+st.dataframe(st.session_state["taag_table_data"], use_container_width=True)
