@@ -28,9 +28,9 @@ def generate_pdf(session_state, filename="output.pdf"):
     # Cover Page
     if os.path.exists(COVER_LOGO_PATH):
         img = Image(COVER_LOGO_PATH, width=10 * inch, height=5 * inch)
-        flowables.append(Spacer(1, 150))
+        flowables.append(Spacer(1, 300))
         flowables.append(img)
-        flowables.append(Spacer(1, 40))
+        flowables.append(Spacer(1, 80))
 
     client_name = session_state.get("Client", "[Client Name]")
     date_str = datetime.now().strftime("%B %d, %Y")
