@@ -51,7 +51,7 @@ for section, fields in audit_sections.items():
                 st.markdown("❌ Table is empty")
         else:
             for field in fields:
-                value = st.session_state.get(field, "1")
+                value = st.session_state.get(field, "")
                 if isinstance(value, str):
                     value = value.strip()
                 if value == "":
