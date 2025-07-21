@@ -40,6 +40,8 @@ if "uploaded_image_paths" in st.session_state:
     for idx, img_path in enumerate(st.session_state["uploaded_image_paths"]):
         with cols[idx % 3]:
             st.image(Image.open(img_path), caption=os.path.basename(img_path), use_container_width =True)
+            
+st.session_state["screenshots"] = st.session_state.get("uploaded_image_paths", [])
 
 
 # Initialize table only once
