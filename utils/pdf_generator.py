@@ -27,7 +27,7 @@ def generate_pdf(session_state, filename="output.pdf"):
 
     # Cover Page
     if os.path.exists(COVER_LOGO_PATH):
-        img = Image(COVER_LOGO_PATH, width=2.5 * inch, height=1 * inch)
+        img = Image(COVER_LOGO_PATH, width=25 * inch, height=10 * inch)
         flowables.append(Spacer(1, 150))
         flowables.append(img)
         flowables.append(Spacer(1, 40))
