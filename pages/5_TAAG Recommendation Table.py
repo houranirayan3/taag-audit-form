@@ -74,4 +74,3 @@ st.dataframe(st.session_state["taag_table_data"], use_container_width=True)
 
 # Display the table (editable)
 st.dataframe(st.session_state["taag_table_data"], use_container_width=True)
-
