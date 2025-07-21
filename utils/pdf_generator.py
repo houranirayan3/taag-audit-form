@@ -8,7 +8,7 @@ from reportlab.lib.units import inch
 import os
 from datetime import datetime
 import pandas as pd
-from fpdf import FPDF
+
 
 COVER_LOGO_PATH = "utils/cover_logo.png"
 FOOTER_LOGO_PATH = "utils/logo.png"
