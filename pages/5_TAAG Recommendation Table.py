@@ -72,3 +72,8 @@ edited_df = st.data_editor(
     use_container_width=True,
     key="taag_table_editor"
 )
+
+
+# Only update if the edited table is not empty
+if not edited_df.empty:
+    st.session_state["taag_table_data"] = edited_df
