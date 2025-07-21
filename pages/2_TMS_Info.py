@@ -9,7 +9,7 @@ init_session()
 st.markdown("""<h2 style='color:#006699;'>Section 2: TMS Info</h2>""", unsafe_allow_html=True)
 
 dropdown_fields = {
-    "TMS Vendor": "tmsVendor",
+    "TMS Vendor": "tmsvendor",
     "Access to TMS": "yes_no",
 }
 
