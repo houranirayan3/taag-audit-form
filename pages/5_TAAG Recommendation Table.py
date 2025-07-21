@@ -51,7 +51,8 @@ if "uploaded_image_paths" in st.session_state:
 
 
 # Initialize table only once
-pd.DataFrame([
+if "taag_table_data" not in st.session_state:
+    st.session_state["taag_table_data"] = pd.DataFrame([
         {
             "Event Name": "",
             "Event Type": "",
