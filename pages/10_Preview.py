@@ -40,7 +40,7 @@ for section, fields in audit_sections.items():
                 for name in uploaded_files:
                     st.markdown(f"- [{name}](uploads/{name})")
             else:
-                st.markdown("❌ No uploaded files")
+                st.markdown("")
 
             # Event table
             df = st.session_state.get("taag_table_data")
