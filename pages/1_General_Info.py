@@ -41,8 +41,3 @@ for label in text_fields:
     value = st.text_input(label, value=current_value, key=f"input_{label}")
     st.session_state[label] = value
 
-# Save to Firestore (optional, you can connect it to a button too)
-if st.button("💾 Save Section 1"):
-    data = {field: st.session_state.get(field, "") for field in list(dropdown_fields) + text_fields}
-    save_form_data("general_info", data)
-    st.success("✅ Section 1 data saved to Firestore!")
