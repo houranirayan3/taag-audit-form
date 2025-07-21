@@ -4,38 +4,38 @@ import pandas as pd
 import os
 import zipfile
 from datetime import datetime
+from PIL import Image
 
-# Set page layout and section title
+# Set page layout and initialize session
 st.set_page_config(layout="wide")
 init_session()
 st.markdown("<h2 style='color:#006699;'>TAAG Recommendation Adding Values</h2>", unsafe_allow_html=True)
 
-# Directory for saving images
-os.makedirs("generated", exist_ok=True)
+# Directory to save images
+image_dir = "generated"
+os.makedirs(image_dir, exist_ok=True)
 
 # Upload form
 with st.form("upload_form"):
     uploaded_files = st.file_uploader("Choose image files", accept_multiple_files=True, key="uploaded_files")
     submitted = st.form_submit_button("Upload")
 
-# Handle uploaded files
+# Handle uploaded images
 if submitted and uploaded_files:
     uploaded_image_paths = []
 
     for file in uploaded_files:
         if file.type.startswith("image/"):
-            file_path = os.path.join("generated", file.name)
+            file_path = os.path.join(image_dir, file.name)
             with open(file_path, "wb") as f:
                 f.write(file.getbuffer())
             uploaded_image_paths.append(file_path)
 
-    # Save to session
     st.session_state["uploaded_image_paths"] = uploaded_image_paths
 
-    # Create ZIP file
+    # Create zip of uploaded images
     zip_filename = f"uploaded_images_{datetime.now().strftime('%Y%m%d_%H%M%S')}.zip"
-    zip_path = os.path.join("generated", zip_filename)
-
+    zip_path = os.path.join(image_dir, zip_filename)
     with zipfile.ZipFile(zip_path, "w") as zipf:
         for img_path in uploaded_image_paths:
             zipf.write(img_path, arcname=os.path.basename(img_path))
@@ -43,7 +43,15 @@ if submitted and uploaded_files:
     st.success("Images uploaded and zipped!")
     st.markdown(f"[📥 Download {zip_filename}](sandbox:/mnt/data/generated/{zip_filename})")
 
-# Initialize the table only once
+# Show uploaded image previews
+if "uploaded_image_paths" in st.session_state:
+    st.markdown("### 🖼️ Image Previews:")
+    cols = st.columns(3)
+    for idx, img_path in enumerate(st.session_state["uploaded_image_paths"]):
+        with cols[idx % 3]:
+            st.image(Image.open(img_path), caption=os.path.basename(img_path), use_column_width=True)
+
+# Initialize table only once
 if "taag_table_data" not in st.session_state:
     st.session_state["taag_table_data"] = pd.DataFrame([
         {
@@ -55,7 +63,7 @@ if "taag_table_data" not in st.session_state:
         }
     ])
 
-# Let user edit table
+# Editable table
 edited_df = st.data_editor(
     st.session_state["taag_table_data"],
     num_rows="dynamic",
@@ -63,14 +71,9 @@ edited_df = st.data_editor(
     key="taag_table_editor"
 )
 
-# Update session_state with edited table immediately
+# Update session state
 st.session_state["taag_table_data"] = edited_df
 
-# Show the current saved version
-st.markdown("### Current Table State:")
-st.dataframe(st.session_state["taag_table_data"], use_container_width=True)
-
-    st.session_state["taag_table_data"] = edited_df
-
-# Display the table (editable)
+# Preview current table state
+st.markdown("### 📊 Current Table State:")
 st.dataframe(st.session_state["taag_table_data"], use_container_width=True)
