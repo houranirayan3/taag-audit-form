@@ -85,7 +85,7 @@ def generate_pdf(session_state, filename="output.pdf"):
                     for name in files:
                         flowables.append(Paragraph(name, field_value_style))
                 else:
-                    flowables.append(Paragraph("❌ No uploaded files", field_value_style))
+                    flowables.append(Paragraph("", field_value_style))
 
                 df = session_state.get("taag_table_data")
                 if isinstance(df, pd.DataFrame) and not df.empty:
