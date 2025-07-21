@@ -10,7 +10,7 @@ from datetime import datetime
 import pandas as pd
 
 
-COVER_LOGO_PATH = "utils/cover_logo.png"
+COVER_LOGO_PATH = "utils/logo_cover.png"
 FOOTER_LOGO_PATH = "utils/logo.png"
 
 
