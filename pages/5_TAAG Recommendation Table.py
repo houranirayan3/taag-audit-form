@@ -48,37 +48,6 @@ if "uploaded_image_paths" in st.session_state:
         with cols[idx % 3]:
             st.image(Image.open(img_path), caption=os.path.basename(img_path), use_column_width=True)
 
-# Initialize table only once
-if "taag_table_data" not in st.session_state:
-    st.session_state["taag_table_data"] = pd.DataFrame([
-        {
-            "Event Name": "",
-            "Event Type": "",
-            "Is the Event Triggered": False,
-            "Custom Data": "",
-            "Description": ""
-        }
-    ])
-
-# Work with a temp copy to avoid immediate state overwrite
-temp_df = st.session_state["taag_table_data"].copy()
-
-# Editable table
-edited_df = st.data_editor(
-    temp_df,
-    num_rows="dynamic",
-    use_container_width=True,
-    key="taag_table_editor"
-)
-
-# Only update if the edited table is not empty
-if not edited_df.empty:
-    st.session_state["taag_table_data"] = edited_df
-
-# Preview current table state
-st.markdown("### 📊 Current Table State:")
-st.dataframe(st.session_state["taag_table_data"], use_container_width=True)
-
 
 
 df = pd.DataFrame(
