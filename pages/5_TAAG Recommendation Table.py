@@ -31,23 +31,14 @@ if submitted and uploaded_files:
 
     st.session_state["uploaded_image_paths"] = uploaded_image_paths
 
-    # Zip and download
-    zip_filename = f"uploaded_images_{datetime.now().strftime('%Y%m%d_%H%M%S')}.zip"
-    zip_path = os.path.join(image_dir, zip_filename)
-    with zipfile.ZipFile(zip_path, "w") as zipf:
-        for img_path in uploaded_image_paths:
-            zipf.write(img_path, arcname=os.path.basename(img_path))
-
-    st.success("Images uploaded and zipped!")
-    st.markdown(f"[📥 Download {zip_filename}](sandbox:/mnt/data/generated/{zip_filename})")
-
+   
 # Show image previews
 if "uploaded_image_paths" in st.session_state:
     st.markdown("### 🖼️ Image Previews:")
     cols = st.columns(3)
     for idx, img_path in enumerate(st.session_state["uploaded_image_paths"]):
         with cols[idx % 3]:
-            st.image(Image.open(img_path), caption=os.path.basename(img_path), use_column_width=True)
+            st.image(Image.open(img_path), caption=os.path.basename(img_path), use_container_width =True)
 
 
 # Initialize table only once
