@@ -5,6 +5,7 @@ import os
 import zipfile
 from datetime import datetime
 from PIL import Image
+from utils.pdf_generator import generate_pdf  # ✅ Make sure this is implemented
 
 
 st.set_page_config(layout="wide")
