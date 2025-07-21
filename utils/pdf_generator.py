@@ -8,6 +8,7 @@ from reportlab.lib.units import inch
 import os
 from datetime import datetime
 import pandas as pd
+from fpdf import FPDF
 
 COVER_LOGO_PATH = "utils/cover_logo.png"
 FOOTER_LOGO_PATH = "utils/logo.png"
@@ -112,3 +113,15 @@ def generate_pdf(session_state, filename="output.pdf"):
 
     doc.build(flowables, onFirstPage=draw_footer, onLaterPages=draw_footer)
     return filename
+
+       def add_images(self, image_paths):
+        for img_path in image_paths:
+            self.add_page()
+            self.image(img_path, x=10, y=30, w=180)
+ # Add images
+    if image_paths:
+        pdf.add_images(image_paths)
+
+    output_path = os.path.join("generated", "taag_report.pdf")
+    pdf.output(output_path)
+    return f"sandbox:/mnt/data/{output_path}"
