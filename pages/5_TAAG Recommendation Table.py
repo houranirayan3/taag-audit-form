@@ -43,26 +43,33 @@ if submitted and uploaded_files:
     st.success("Images uploaded and zipped!")
     st.markdown(f"[📥 Download {zip_filename}](sandbox:/mnt/data/generated/{zip_filename})")
 
-# Initialize table data only once
+# Initialize the table only once
 if "taag_table_data" not in st.session_state:
-    st.session_state["taag_table_data"] = pd.DataFrame([{
-        "Event Name": "",
-        "Event Type": "",
-        "Is the Event Triggered": False,
-        "Custom Data": "",
-        "Description": ""
-    }])
+    st.session_state["taag_table_data"] = pd.DataFrame([
+        {
+            "Event Name": "",
+            "Event Type": "",
+            "Is the Event Triggered": False,
+            "Custom Data": "",
+            "Description": ""
+        }
+    ])
 
-# Show editable table (outside form so it doesn't reset)
+# Let user edit table
 edited_df = st.data_editor(
     st.session_state["taag_table_data"],
     num_rows="dynamic",
     use_container_width=True,
-    key="editor_taag"
+    key="taag_table_editor"
 )
 
-# Save edited table if there's a change
-if edited_df is not None and not edited_df.equals(st.session_state["taag_table_data"]):
+# Update session_state with edited table immediately
+st.session_state["taag_table_data"] = edited_df
+
+# Show the current saved version
+st.markdown("### Current Table State:")
+st.dataframe(st.session_state["taag_table_data"], use_container_width=True)
+
     st.session_state["taag_table_data"] = edited_df
 
 # Display the table (editable)
