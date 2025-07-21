@@ -6,6 +6,7 @@ import zipfile
 from datetime import datetime
 from PIL import Image
 
+
 st.set_page_config(layout="wide")
 init_session()
 st.markdown("<h2 style='color:#006699;'>TAAG Recommendation Adding Values</h2>", unsafe_allow_html=True)
@@ -47,7 +48,6 @@ if "uploaded_image_paths" in st.session_state:
     for idx, img_path in enumerate(st.session_state["uploaded_image_paths"]):
         with cols[idx % 3]:
             st.image(Image.open(img_path), caption=os.path.basename(img_path), use_column_width=True)
-
 
 
 # Initialize table only once
