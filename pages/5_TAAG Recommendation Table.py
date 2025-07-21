@@ -50,8 +50,8 @@ if "uploaded_image_paths" in st.session_state:
 
 
 
-df = pd.DataFrame(
-    [
+# Initialize table only once
+pd.DataFrame([
         {
             "Event Name": "",
             "Event Type": "",
@@ -59,22 +59,15 @@ df = pd.DataFrame(
             "Custom Data": "",
             "Description": ""
         }
-    ]
-)
-edited_df = st.data_editor(
-    df,
-    column_config={
-        "command": "Event Name",
-        "command":"Event type",
-        "connand": "Is the Event Triggered": False",
-        "command": "Custom Data",
-        "command": "Description"
-        ),
-        "is_widget": "Widget ?",
-    },
-    disabled=["command", "is_widget"],
-    hide_index=True,
-)
+    ])
 
-favorite_command = edited_df.loc[edited_df["rating"].idxmax()]["command"]
-st.markdown(f"Your favorite command is **{favorite_command}** 🎈")
+# Work with a temp copy to avoid immediate state overwrite
+temp_df = st.session_state["taag_table_data"].copy()
+
+# Editable table
+edited_df = st.data_editor(
+    temp_df,
+    num_rows="dynamic",
+    use_container_width=True,
+    key="taag_table_editor"
+)
