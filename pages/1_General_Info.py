@@ -19,7 +19,7 @@ dropdown_fields = {
 }
 
 # Define text fields
-text_fields = ["Urls"]
+text_fields = ["Urls", "test"]
 
 # Render dropdown fields
 for label, collection in dropdown_fields.items():
